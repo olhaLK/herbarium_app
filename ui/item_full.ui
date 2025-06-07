@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>itemFull</class>
+ <widget class="QMainWindow" name="itemFull">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>782</width>
+    <height>571</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: rgb(251, 255, 237);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frameItemFull">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>30</y>
+      <width>711</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <widget class="QGraphicsView" name="viewItemFull">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>251</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 6px;
+border: 2 solid rgb(255, 170, 127);
+background: white;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="changeImageItemFull">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>200</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 194, 217);
+border-radius: 10px;
+color: white;
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEditNameItemFull">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>60</y>
+       <width>241</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEditSortItemFull">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>120</y>
+       <width>241</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinWateringItemFull">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>300</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>270</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Watering once/day</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>270</y>
+       <width>161</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Fertilizer once/week</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinFeritilizerItem">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>300</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelSortItemFull">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>100</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Sort</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelNameItemFull">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>40</y>
+       <width>49</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateLastWateringItem">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>360</y>
+       <width>110</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>330</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Last watering</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>335</y>
+       <width>131</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Last feritizer</string>
+     </property>
+    </widget>
+    <widget class="QDateEdit" name="dateLastFeritilizerItem">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>360</y>
+       <width>110</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEditDescriptionItemFull">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>190</y>
+       <width>241</width>
+       <height>191</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background: white;
+border: 2 solid #A5D6A7 ;
+border-radius: 6px;
+color: rgb(170, 170, 127);
+font-size: 14px;
+font: 9pt &quot;Century Gothic&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelDescriptionItemFull">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>170</y>
+       <width>101</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(125, 92, 73);
+font-size: 16px;
+font-weight: bold;
+border: none;
+</string>
+     </property>
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="horizontalGroupBox">
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>410</y>
+       <width>271</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="btnSaveItem">
+        <property name="styleSheet">
+         <string notr="true">background-color: #A5D6A7;
+color: #2E7D32;
+border: none;
+border-radius: 6px;
+padding: 10px 20px;
+font-size: 16px;
+font: &quot;Century Gothic&quot;;
+font-weight: bold;
+</string>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnBackItem">
+        <property name="styleSheet">
+         <string notr="true">background-color: #A5D6A7;
+color: #2E7D32;
+border: none;
+border-radius: 6px;
+padding: 10px 20px;
+font-size: 16px;
+font-weight: bold;
+</string>
+        </property>
+        <property name="text">
+         <string>Back</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnDeleteItem">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 88, 91);
+color: white;
+border: none;
+border-radius: 6px;
+padding: 10px 20px;
+font-size: 16px;
+font-weight: bold;
+</string>
+        </property>
+        <property name="text">
+         <string>Delete</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <zorder>viewItemFull</zorder>
+    <zorder>changeImageItemFull</zorder>
+    <zorder>textEditNameItemFull</zorder>
+    <zorder>textEditSortItemFull</zorder>
+    <zorder>label_3</zorder>
+    <zorder>label_4</zorder>
+    <zorder>labelSortItemFull</zorder>
+    <zorder>labelNameItemFull</zorder>
+    <zorder>label_5</zorder>
+    <zorder>label_6</zorder>
+    <zorder>textEditDescriptionItemFull</zorder>
+    <zorder>labelDescriptionItemFull</zorder>
+    <zorder>horizontalGroupBox</zorder>
+    <zorder>spinWateringItemFull</zorder>
+    <zorder>dateLastWateringItem</zorder>
+    <zorder>spinFeritilizerItem</zorder>
+    <zorder>dateLastFeritilizerItem</zorder>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>782</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
