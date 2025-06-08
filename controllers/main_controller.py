@@ -9,6 +9,7 @@ from models.plant_model import Plant
 from database.db_manager import load_plants, save_plants
 from controllers.plant_detail_window import PlantDetailWindow
 from utils.helpers import calc_progress_adaptive, format_date
+from PySide6.QtWidgets import QGridLayout
 
 import os
 
@@ -49,25 +50,31 @@ class MainWindow(QMainWindow):
         ])
         self.ui.filterMain.currentTextChanged.connect(self.apply_filter)
 
-        layout = QVBoxLayout()
-        self.ui.scrollAreaWidgetContents.setLayout(layout)
-        layout.setSpacing(15)
-        layout.setContentsMargins(10, 10, 10, 10)
+        self.grid_layout = QGridLayout()
+        self.grid_layout.setSpacing(15)
+        self.grid_layout.setContentsMargins(10, 10, 10, 10)
+        self.ui.scrollAreaWidgetContents.setLayout(self.grid_layout)
+
         self.render_plants()
 
-
     def render_plants(self):
-        layout = self.ui.scrollAreaWidgetContents.layout()
+        layout = self.grid_layout
         while layout.count():
             item = layout.takeAt(0)
             widget = item.widget()
             if widget:
                 widget.setParent(None)
 
-        for plant in self.filtered_plants:
+        # Автоматичне визначення кількості колонок
+        scroll_width = self.ui.scrollAreaMain.viewport().width()
+        card_width = 250
+        columns = max(1, scroll_width // (card_width + 20))
+
+        for i, plant in enumerate(self.filtered_plants):
             item_ui = Ui_Form()
             form = QWidget()
             item_ui.setupUi(form)
+            form.setFixedWidth(card_width)
 
             item_ui.labelNameItem.setText(plant.name)
             item_ui.labelSortItem.setText(plant.sort)
@@ -82,8 +89,6 @@ class MainWindow(QMainWindow):
                 calc_progress_adaptive(plant.last_fertilizer, plant.fertilizer_freq, 365)
             )
 
-            item_ui.progressFeritilizerItem.setValue(calc_progress(plant.last_fertilizer, plant.next_fertilizer))
-
             if plant.image and os.path.exists(plant.image):
                 pix = QPixmap(plant.image).scaled(160, 160, Qt.KeepAspectRatio)
                 scene = QGraphicsScene()
@@ -91,7 +96,17 @@ class MainWindow(QMainWindow):
                 item_ui.viewItem.setScene(scene)
 
             item_ui.btnMoreItem.clicked.connect(lambda _, p=plant: self.open_edit_view(p))
-            layout.addWidget(form)
+
+            row = i // columns
+            col = i % columns
+            layout.addWidget(form, row, col)
+
+            rows = (len(self.filtered_plants) + columns - 1) // columns
+            row_height = 480  # высота одной карточки (примерно)
+            spacing = self.grid_layout.spacing() * (rows - 1)
+            total_height = rows * row_height + spacing + 10  # +отступы
+
+            self.ui.scrollAreaWidgetContents.setMinimumHeight(total_height)
 
     def open_add_dialog(self):
         dialog = QDialog()
@@ -186,3 +201,9 @@ class MainWindow(QMainWindow):
             self.filtered_plants = self.all_plants
 
         self.render_plants()
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self.render_plants()
+
+

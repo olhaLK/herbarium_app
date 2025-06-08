@@ -9,5 +9,27 @@
     "last_transplant": "2000-01-01",
     "image": "C:/Users/House/Downloads/photo_2025-06-07_17-28-54.jpg",
     "description": ""
+  },
+  {
+    "name": "",
+    "sort": "",
+    "watering_freq": 0,
+    "fertilizer_freq": 0,
+    "last_watering": "2025-06-08",
+    "last_fertilizer": "2025-06-08",
+    "last_transplant": "2000-01-01",
+    "image": "",
+    "description": ""
+  },
+  {
+    "name": "",
+    "sort": "",
+    "watering_freq": 0,
+    "fertilizer_freq": 0,
+    "last_watering": "2025-06-08",
+    "last_fertilizer": "2025-06-08",
+    "last_transplant": "2000-01-01",
+    "image": "",
+    "description": ""
   }
 ]
