@@ -24,7 +24,7 @@ class Ui_itemFull(object):
     def setupUi(self, itemFull):
         if not itemFull.objectName():
             itemFull.setObjectName(u"itemFull")
-        itemFull.resize(782, 571)
+        itemFull.resize(782, 693)
         itemFull.setStyleSheet(u"background: rgb(251, 255, 237);")
         self.centralwidget = QWidget(itemFull)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -46,6 +46,9 @@ class Ui_itemFull(object):
 "border-radius: 10px;\n"
 "color: white;\n"
 "")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.DocumentSaveAs))
+        self.changeImageItemFull.setIcon(icon)
+        self.changeImageItemFull.setIconSize(QSize(24, 24))
         self.textEditNameItemFull = QTextEdit(self.frameItemFull)
         self.textEditNameItemFull.setObjectName(u"textEditNameItemFull")
         self.textEditNameItemFull.setGeometry(QRect(370, 60, 241, 31))
@@ -175,7 +178,7 @@ class Ui_itemFull(object):
         self.horizontalGroupBox = QGroupBox(self.frameItemFull)
         self.horizontalGroupBox.setObjectName(u"horizontalGroupBox")
         self.horizontalGroupBox.setGeometry(QRect(230, 410, 271, 71))
-        self.horizontalGroupBox.setStyleSheet(u"")
+        self.horizontalGroupBox.setStyleSheet(u"border: none;")
         self.horizontalLayout = QHBoxLayout(self.horizontalGroupBox)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.btnSaveItem = QPushButton(self.horizontalGroupBox)

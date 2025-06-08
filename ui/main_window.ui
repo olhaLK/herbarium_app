@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
+    <width>863</width>
     <height>853</height>
    </rect>
   </property>
@@ -95,10 +95,14 @@ font-size: 14px;
        <property name="styleSheet">
         <string notr="true">border: 2 solid rgb(255, 170, 127);
 background: rgb(255, 170, 127);
-border-radius: 6px;</string>
+border-radius: 6px;
+color: white;</string>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="icon">
+        <iconset theme="QIcon::ThemeIcon::EditFind"/>
        </property>
       </widget>
       <widget class="QPushButton" name="btnAddMain">
@@ -194,7 +198,7 @@ font-weight: bold;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>615</width>
+     <width>863</width>
      <height>22</height>
     </rect>
    </property>

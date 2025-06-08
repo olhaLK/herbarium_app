@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(615, 853)
+        MainWindow.resize(863, 853)
         MainWindow.setMouseTracking(True)
         MainWindow.setStyleSheet(u"background: rgb(251, 255, 237);")
         self.centralwidget = QWidget(MainWindow)
@@ -64,7 +64,10 @@ class Ui_MainWindow(object):
         self.btnSearchMain.setGeometry(QRect(570, 0, 41, 31))
         self.btnSearchMain.setStyleSheet(u"border: 2 solid rgb(255, 170, 127);\n"
 "background: rgb(255, 170, 127);\n"
-"border-radius: 6px;")
+"border-radius: 6px;\n"
+"color: white;")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.EditFind))
+        self.btnSearchMain.setIcon(icon)
         self.btnAddMain = QPushButton(self.widget)
         self.btnAddMain.setObjectName(u"btnAddMain")
         self.btnAddMain.setGeometry(QRect(680, 0, 101, 31))
@@ -111,7 +114,7 @@ class Ui_MainWindow(object):
         self.widget.raise_()
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 615, 22))
+        self.menubar.setGeometry(QRect(0, 0, 863, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

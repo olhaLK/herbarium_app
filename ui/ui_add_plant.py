@@ -24,7 +24,7 @@ class Ui_addPlant(object):
     def setupUi(self, addPlant):
         if not addPlant.objectName():
             addPlant.setObjectName(u"addPlant")
-        addPlant.resize(278, 554)
+        addPlant.resize(278, 548)
         addPlant.setStyleSheet(u"background: rgb(251, 255, 237);")
         self.frameAddPlant = QFrame(addPlant)
         self.frameAddPlant.setObjectName(u"frameAddPlant")
@@ -135,6 +135,9 @@ class Ui_addPlant(object):
 "border-radius: 10px;\n"
 "color: white;\n"
 "")
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.DocumentSaveAs))
+        self.btnAddPlantImage.setIcon(icon)
+        self.btnAddPlantImage.setIconSize(QSize(24, 24))
         self.horizontalGroupBox = QGroupBox(addPlant)
         self.horizontalGroupBox.setObjectName(u"horizontalGroupBox")
         self.horizontalGroupBox.setGeometry(QRect(20, 490, 241, 61))
