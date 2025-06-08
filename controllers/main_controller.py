@@ -1,4 +1,5 @@
-from PySide6.QtWidgets import QMainWindow, QDialog, QLabel, QGraphicsScene, QWidget, QSizePolicy, QVBoxLayout
+from PySide6.QtWidgets import QMainWindow, QDialog, QLabel, QGraphicsScene, QWidget, QSizePolicy, QVBoxLayout, \
+    QFileDialog
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from datetime import datetime
@@ -10,10 +11,8 @@ from database.db_manager import load_plants, save_plants
 from controllers.plant_detail_window import PlantDetailWindow
 from utils.helpers import calc_progress_adaptive, format_date
 from PySide6.QtWidgets import QGridLayout
-
+from PySide6.QtGui import QIcon
 import os
-
-from datetime import datetime
 
 
 def calc_progress(last_date: datetime, next_date: datetime) -> int:
@@ -31,11 +30,18 @@ def calc_progress(last_date: datetime, next_date: datetime) -> int:
     progress = int((days_passed / total_days) * 100)
     return max(0, min(progress, 100))
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.setWindowTitle("Herbarium")
+
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        icon_path = os.path.join(base_path, "../icons/logo.svg")
+
+        self.setWindowIcon(QIcon(icon_path))
 
         self.all_plants: list[Plant] = load_plants()
         self.filtered_plants = self.all_plants.copy()
@@ -43,10 +49,10 @@ class MainWindow(QMainWindow):
         self.ui.btnAddMain.clicked.connect(self.open_add_dialog)
         self.ui.btnSearchMain.clicked.connect(self.search_plant)
         self.ui.filterMain.addItems([
-            "Все",
-            "Полив просрочен",
-            "Пересадка давно",
-            "Удобрение просрочено"
+            "All",
+            "Watering is overdue",
+            "Replanting is long overdue",
+            "Fertilizer is overdue"
         ])
         self.ui.filterMain.currentTextChanged.connect(self.apply_filter)
 
@@ -57,6 +63,7 @@ class MainWindow(QMainWindow):
 
         self.render_plants()
 
+
     def render_plants(self):
         layout = self.grid_layout
         while layout.count():
@@ -65,10 +72,9 @@ class MainWindow(QMainWindow):
             if widget:
                 widget.setParent(None)
 
-        # Автоматичне визначення кількості колонок
         scroll_width = self.ui.scrollAreaMain.viewport().width()
         card_width = 250
-        columns = max(1, scroll_width // (card_width + 20))
+        columns = max(1, scroll_width // (card_width + 10))
 
         for i, plant in enumerate(self.filtered_plants):
             item_ui = Ui_Form()
@@ -102,20 +108,30 @@ class MainWindow(QMainWindow):
             layout.addWidget(form, row, col)
 
             rows = (len(self.filtered_plants) + columns - 1) // columns
-            row_height = 480  # высота одной карточки (примерно)
+            row_height = 480
             spacing = self.grid_layout.spacing() * (rows - 1)
-            total_height = rows * row_height + spacing + 10  # +отступы
+            total_height = rows * row_height + spacing + 10
 
             self.ui.scrollAreaWidgetContents.setMinimumHeight(total_height)
+
 
     def open_add_dialog(self):
         dialog = QDialog()
         self.add_ui = Ui_addPlant()
         self.add_ui.setupUi(dialog)
 
+        base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        icon_path = os.path.join(base_path, "icons", "logo.svg")
+
+        dialog.setWindowTitle("Add Plant")
+        dialog.setWindowIcon(QIcon(icon_path))
+
+        self.add_ui.btnAddPlantImage.clicked.connect(self.select_image)
         self.add_ui.btnYesDelete.clicked.connect(dialog.reject)
         self.add_ui.btnBackDelete.clicked.connect(lambda: self.save_new_plant(dialog))
+
         dialog.exec()
+
 
     def save_new_plant(self, dialog):
         name = self.add_ui.textEditNameAddPlant.toPlainText().strip()
@@ -142,6 +158,7 @@ class MainWindow(QMainWindow):
         save_plants(self.all_plants)
         self.render_plants()
         dialog.accept()
+
 
     def open_edit_view(self, plant: Plant):
         plant_dict = {
@@ -177,8 +194,10 @@ class MainWindow(QMainWindow):
             save_plants(self.all_plants)
             self.render_plants()
 
+
         self.detail_window = PlantDetailWindow(plant_dict, sync_back, delete_callback)
         self.detail_window.show()
+
 
     def search_plant(self):
         query = self.ui.searchMain.text().strip().lower()
@@ -187,23 +206,62 @@ class MainWindow(QMainWindow):
         ] if query else self.all_plants
         self.render_plants()
 
+
     def apply_filter(self, text):
         today = datetime.today().date()
-        if text == "Все":
+        if text == "All":
             self.filtered_plants = self.all_plants
-        elif text == "Полив просрочен":
+        elif text == "Watering is overdue":
             self.filtered_plants = [p for p in self.all_plants if p.next_watering < today]
-        elif text == "Пересадка давно":
+        elif text == "Transplant a long time ago":
             self.filtered_plants = [p for p in self.all_plants if (today - p.last_transplant).days > 180]
-        elif text == "Удобрение просрочено":
+        elif text == "Fertilizer is expired":
             self.filtered_plants = [p for p in self.all_plants if p.next_fertilizer < today]
         else:
             self.filtered_plants = self.all_plants
 
         self.render_plants()
 
+
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self.render_plants()
 
 
+    def select_image(self):
+        path, _ = QFileDialog.getOpenFileName(self, "Select image", "", "Images (*.png *.jpg *.jpeg)")
+        if path:
+            self.add_ui.image_path = path
+            pix = QPixmap(path).scaled(160, 160, Qt.KeepAspectRatio)
+            scene = QGraphicsScene()
+            scene.addPixmap(pix)
+            self.add_ui.addPlantImage.setScene(scene)
+
+
+    def save_new_plant(self, dialog):
+        name = self.add_ui.textEditNameAddPlant.toPlainText().strip()
+        sort = self.add_ui.textEditSortAddPlant.toPlainText().strip()
+        watering_days = self.add_ui.spinWateringAddPlant.value()
+        fertilizer_days = self.add_ui.spinFertilizerAddPlant.value()
+        transplant_date = self.add_ui.dateAddPlant.date().toPython()
+
+        today = datetime.today().date()
+        image_path = getattr(self.add_ui, "image_path", "")
+
+        new_plant = Plant(
+            name=name,
+            sort=sort,
+            watering_freq=watering_days,
+            fertilizer_freq=fertilizer_days,
+            last_watering=today,
+            last_fertilizer=today,
+            last_transplant=transplant_date,
+            image=image_path,
+            description=""
+        )
+
+        self.all_plants.append(new_plant)
+        self.filtered_plants = self.all_plants
+        save_plants(self.all_plants)
+        self.render_plants()
+        dialog.accept()

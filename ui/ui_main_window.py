@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         self.widget.setMinimumSize(QSize(0, 50))
         self.filterMain = QComboBox(self.widget)
         self.filterMain.setObjectName(u"filterMain")
-        self.filterMain.setGeometry(QRect(10, 0, 231, 31))
+        self.filterMain.setGeometry(QRect(0, 0, 231, 31))
         self.filterMain.setStyleSheet(u"background: white;\n"
 "border: 2 solid #A5D6A7 ;\n"
 "border-radius: 6px;\n"
@@ -70,7 +70,7 @@ class Ui_MainWindow(object):
         self.btnSearchMain.setIcon(icon)
         self.btnAddMain = QPushButton(self.widget)
         self.btnAddMain.setObjectName(u"btnAddMain")
-        self.btnAddMain.setGeometry(QRect(680, 0, 101, 31))
+        self.btnAddMain.setGeometry(QRect(740, 0, 101, 31))
         self.btnAddMain.setMouseTracking(False)
         self.btnAddMain.setContextMenuPolicy(Qt.ContextMenuPolicy.ActionsContextMenu)
         self.btnAddMain.setStyleSheet(u"background-color: #A5D6A7;\n"

@@ -50,7 +50,7 @@
       <widget class="QComboBox" name="filterMain">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>0</x>
          <y>0</y>
          <width>231</width>
          <height>31</height>
@@ -108,7 +108,7 @@ color: white;</string>
       <widget class="QPushButton" name="btnAddMain">
        <property name="geometry">
         <rect>
-         <x>680</x>
+         <x>740</x>
          <y>0</y>
          <width>101</width>
          <height>31</height>

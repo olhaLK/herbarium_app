@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 
+
 class Plant:
     def __init__(self, name, sort, watering_freq, fertilizer_freq,
                  last_watering, last_fertilizer, last_transplant,
@@ -14,13 +15,16 @@ class Plant:
         self.image = image
         self.description = description
 
+
     @property
     def next_watering(self):
         return self.last_watering + timedelta(days=self.watering_freq)
 
+
     @property
     def next_fertilizer(self):
         return self.last_fertilizer + timedelta(days=self.fertilizer_freq)
+
 
     def to_dict(self):
         return {
@@ -34,6 +38,7 @@ class Plant:
             "image": self.image,
             "description": self.description
         }
+
 
     @classmethod
     def from_dict(cls, data):

@@ -1,7 +1,7 @@
 from PySide6.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QDialog
 from ui.ui_item_full import Ui_itemFull
 from ui.ui_delete_dialog import Ui_deleteDialog
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QIcon
 from PySide6.QtCore import Qt
 from datetime import timedelta
 import os
@@ -13,6 +13,12 @@ class PlantDetailWindow(QMainWindow):
         self.ui = Ui_itemFull()
         self.ui.setupUi(self)
 
+        self.setWindowTitle("Edit Plant")
+
+        base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        icon_path = os.path.join(base_path, "icons", "logo.svg")
+        self.setWindowIcon(QIcon(icon_path))
+
         self.plant = plant
         self.save_callback = save_callback
         self.delete_callback = delete_callback
@@ -20,6 +26,7 @@ class PlantDetailWindow(QMainWindow):
 
         self.fill_fields()
         self.setup_connections()
+
 
     def fill_fields(self):
         self.ui.textEditNameItemFull.setPlainText(self.plant["name"])
@@ -37,14 +44,16 @@ class PlantDetailWindow(QMainWindow):
             scene.addPixmap(pix)
             self.ui.viewItemFull.setScene(scene)
 
+
     def setup_connections(self):
         self.ui.btnSaveItem.clicked.connect(self.save)
         self.ui.btnBackItem.clicked.connect(self.close)
         self.ui.btnDeleteItem.clicked.connect(self.confirm_delete)
         self.ui.changeImageItemFull.clicked.connect(self.change_image)
 
+
     def change_image(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Выбрать изображение", "", "Images (*.png *.jpg *.jpeg)")
+        path, _ = QFileDialog.getOpenFileName(self, "Select image", "", "Images (*.png *.jpg *.jpeg)")
         if path:
             self.image_path = path
             pix = QPixmap(path).scaled(250, 230, Qt.KeepAspectRatio)
@@ -52,6 +61,7 @@ class PlantDetailWindow(QMainWindow):
             scene = QGraphicsScene()
             scene.addPixmap(pix)
             self.ui.viewItemFull.setScene(scene)
+
 
     def save(self):
         self.plant["name"] = self.ui.textEditNameItemFull.toPlainText()
@@ -68,6 +78,7 @@ class PlantDetailWindow(QMainWindow):
         self.save_callback()
         self.close()
 
+
     def confirm_delete(self):
         dialog = QDialog(self)
         ui = Ui_deleteDialog()
@@ -75,6 +86,7 @@ class PlantDetailWindow(QMainWindow):
         ui.btnYesDelete.clicked.connect(lambda: self.delete_plant(dialog))
         ui.btnBackDelete.clicked.connect(dialog.close)
         dialog.exec()
+
 
     def delete_plant(self, dialog):
         self.delete_callback(self.plant)

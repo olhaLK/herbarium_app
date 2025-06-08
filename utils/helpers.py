@@ -1,7 +1,9 @@
 from datetime import date
 
+
 def format_date(d: date) -> str:
     return d.strftime("%d.%m.%Y")
+
 
 def calc_progress_adaptive(last_date: date, interval_days: int, max_days: int) -> int:
     today = date.today()

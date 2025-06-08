@@ -27,7 +27,7 @@ class Ui_deleteDialog(object):
         self.horizontalGroupBox = QGroupBox(deleteDialog)
         self.horizontalGroupBox.setObjectName(u"horizontalGroupBox")
         self.horizontalGroupBox.setGeometry(QRect(50, 230, 311, 61))
-        self.horizontalGroupBox.setStyleSheet(u"")
+        self.horizontalGroupBox.setStyleSheet(u"border: none;")
         self.horizontalLayout = QHBoxLayout(self.horizontalGroupBox)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.btnYesDelete = QPushButton(self.horizontalGroupBox)

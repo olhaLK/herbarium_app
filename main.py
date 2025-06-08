@@ -1,6 +1,11 @@
 from PySide6.QtWidgets import QApplication
 from controllers.main_controller import MainWindow
 from datetime import datetime
+import json
+import os
+
+
+DATA_FILE = "plants.json"
 
 
 if __name__ == "__main__":
@@ -10,10 +15,6 @@ if __name__ == "__main__":
     window.show()
     sys.exit(app.exec())
 
-import json
-import os
-
-DATA_FILE = "plants.json"
 
 def load_plants(self):
     if os.path.exists(DATA_FILE):
@@ -25,6 +26,7 @@ def load_plants(self):
                 plant["next_fertilizer"] = datetime.strptime(plant["next_fertilizer"], "%Y-%m-%d").date()
             self.all_plants = data
             self.filtered_plants = self.all_plants
+
 
 def save_plants(self):
     data = []
