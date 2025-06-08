@@ -7,10 +7,28 @@ from ui.ui_add_plant import Ui_addPlant
 from ui.ui_item import Ui_Form
 from models.plant_model import Plant
 from database.db_manager import load_plants, save_plants
-from utils.helpers import calc_progress, format_date
 from controllers.plant_detail_window import PlantDetailWindow
+from utils.helpers import calc_progress_adaptive, format_date
+
 import os
 
+from datetime import datetime
+
+
+def calc_progress(last_date: datetime, next_date: datetime) -> int:
+    today = datetime.now().date()
+    total_days = (next_date - last_date).days
+    days_passed = (today - last_date).days
+
+    if total_days <= 0:
+        return 100 if today >= next_date else 0
+    if days_passed < 0:
+        return 0
+    if days_passed > total_days:
+        return 100
+
+    progress = int((days_passed / total_days) * 100)
+    return max(0, min(progress, 100))
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -37,6 +55,7 @@ class MainWindow(QMainWindow):
         layout.setContentsMargins(10, 10, 10, 10)
         self.render_plants()
 
+
     def render_plants(self):
         layout = self.ui.scrollAreaWidgetContents.layout()
         while layout.count():
@@ -56,7 +75,13 @@ class MainWindow(QMainWindow):
             item_ui.nextWateringItem.setText(format_date(plant.next_watering))
             item_ui.lastFeritilizerItem.setText(format_date(plant.last_fertilizer))
             item_ui.nextFeritilizerItem.setText(format_date(plant.next_fertilizer))
-            item_ui.progressWateringItem.setValue(calc_progress(plant.last_watering, plant.next_watering))
+            item_ui.progressWateringItem.setValue(
+                calc_progress_adaptive(plant.last_watering, plant.watering_freq, 30)
+            )
+            item_ui.progressFeritilizerItem.setValue(
+                calc_progress_adaptive(plant.last_fertilizer, plant.fertilizer_freq, 365)
+            )
+
             item_ui.progressFeritilizerItem.setValue(calc_progress(plant.last_fertilizer, plant.next_fertilizer))
 
             if plant.image and os.path.exists(plant.image):
@@ -159,4 +184,5 @@ class MainWindow(QMainWindow):
             self.filtered_plants = [p for p in self.all_plants if p.next_fertilizer < today]
         else:
             self.filtered_plants = self.all_plants
+
         self.render_plants()
