@@ -23,19 +23,23 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(273, 509)
+        Form.resize(240, 505)
         self.widgetItem = QWidget(Form)
         self.widgetItem.setObjectName(u"widgetItem")
-        self.widgetItem.setGeometry(QRect(0, 0, 240, 450))
-        self.widgetItem.setMinimumSize(QSize(240, 450))
-        self.widgetItem.setMaximumSize(QSize(250, 500))
+        self.widgetItem.setGeometry(QRect(0, 0, 231, 501))
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widgetItem.sizePolicy().hasHeightForWidth())
+        self.widgetItem.setSizePolicy(sizePolicy)
+        self.widgetItem.setMinimumSize(QSize(0, 451))
         self.widgetItem.setBaseSize(QSize(0, 455))
         self.widgetItem.setStyleSheet(u"background: white;\n"
 "border: 2 solid #A5D6A7;\n"
 "border-radius: 6px;")
         self.frameItem = QFrame(self.widgetItem)
         self.frameItem.setObjectName(u"frameItem")
-        self.frameItem.setGeometry(QRect(10, 10, 211, 431))
+        self.frameItem.setGeometry(QRect(10, 10, 211, 481))
         self.frameItem.setStyleSheet(u"border: none;\n"
 "")
         self.verticalLayout_2 = QVBoxLayout(self.frameItem)
@@ -68,6 +72,15 @@ class Ui_Form(object):
 "")
 
         self.verticalLayout_2.addWidget(self.labelSortItem)
+
+        self.labelSortItem_2 = QLabel(self.frameItem)
+        self.labelSortItem_2.setObjectName(u"labelSortItem_2")
+        self.labelSortItem_2.setStyleSheet(u"color: rgb(170, 170, 127);\n"
+"font-size: 12px;\n"
+"border: none;\n"
+"font-weight: bold;")
+
+        self.verticalLayout_2.addWidget(self.labelSortItem_2)
 
         self.frameWateringItem = QFrame(self.frameItem)
         self.frameWateringItem.setObjectName(u"frameWateringItem")
@@ -110,6 +123,15 @@ class Ui_Form(object):
         self.progressWateringItem.setValue(24)
 
         self.verticalLayout_2.addWidget(self.progressWateringItem)
+
+        self.labelSortItem_3 = QLabel(self.frameItem)
+        self.labelSortItem_3.setObjectName(u"labelSortItem_3")
+        self.labelSortItem_3.setStyleSheet(u"color: rgb(170, 170, 127);\n"
+"font-size: 12px;\n"
+"border: none;\n"
+"font-weight: bold;")
+
+        self.verticalLayout_2.addWidget(self.labelSortItem_3)
 
         self.frameFerilizerItem = QFrame(self.frameItem)
         self.frameFerilizerItem.setObjectName(u"frameFerilizerItem")
@@ -175,9 +197,11 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.labelNameItem.setText(QCoreApplication.translate("Form", u"Name", None))
         self.labelSortItem.setText(QCoreApplication.translate("Form", u"Sort", None))
+        self.labelSortItem_2.setText(QCoreApplication.translate("Form", u"Watering", None))
         self.lastWateringItem.setText(QCoreApplication.translate("Form", u"lastWatering", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"-", None))
         self.nextWateringItem.setText(QCoreApplication.translate("Form", u"nextWatering", None))
+        self.labelSortItem_3.setText(QCoreApplication.translate("Form", u"Feritilizer", None))
         self.lastFeritilizerItem.setText(QCoreApplication.translate("Form", u"lastFeritilizer", None))
         self.label_7.setText(QCoreApplication.translate("Form", u"-", None))
         self.nextFeritilizerItem.setText(QCoreApplication.translate("Form", u"nextFeritilizer", None))

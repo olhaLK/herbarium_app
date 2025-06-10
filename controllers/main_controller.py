@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
             layout.addWidget(form, row, col)
 
             rows = (len(self.filtered_plants) + columns - 1) // columns
-            row_height = 480
+            row_height = 520
             spacing = self.grid_layout.spacing() * (rows - 1)
             total_height = rows * row_height + spacing + 10
 
@@ -194,7 +194,6 @@ class MainWindow(QMainWindow):
             save_plants(self.all_plants)
             self.render_plants()
 
-
         self.detail_window = PlantDetailWindow(plant_dict, sync_back, delete_callback)
         self.detail_window.show()
 
@@ -202,21 +201,57 @@ class MainWindow(QMainWindow):
     def search_plant(self):
         query = self.ui.searchMain.text().strip().lower()
         self.filtered_plants = [
-            plant for plant in self.all_plants if query in plant.name.lower()
+            plant for plant in self.all_plants
+            if (query in plant.name.lower() or
+                query in plant.sort.lower() or
+                query in plant.description.lower())
         ] if query else self.all_plants
         self.render_plants()
 
 
     def apply_filter(self, text):
         today = datetime.today().date()
+
         if text == "All":
-            self.filtered_plants = self.all_plants
+            self.filtered_plants = sorted(
+                self.all_plants,
+                key=lambda p: (
+                    p.next_watering < today and p.next_fertilizer < today,
+                    p.next_watering < today,
+                    p.next_fertilizer < today,
+                    -calc_progress_adaptive(p.last_watering, p.watering_freq, 30),
+                    -calc_progress_adaptive(p.last_fertilizer, p.fertilizer_freq, 365)
+                ),
+                reverse=True
+            )
         elif text == "Watering is overdue":
-            self.filtered_plants = [p for p in self.all_plants if p.next_watering < today]
-        elif text == "Transplant a long time ago":
-            self.filtered_plants = [p for p in self.all_plants if (today - p.last_transplant).days > 180]
-        elif text == "Fertilizer is expired":
-            self.filtered_plants = [p for p in self.all_plants if p.next_fertilizer < today]
+            self.filtered_plants = sorted(
+                [p for p in self.all_plants if p.next_watering < today],
+                key=lambda p: (
+                    p.next_fertilizer < today,
+                    -calc_progress_adaptive(p.last_watering, p.watering_freq, 30)
+                ),
+                reverse=True
+            )
+        elif text == "Replanting is long overdue":
+            self.filtered_plants = sorted(
+                [p for p in self.all_plants if (today - p.last_transplant).days > 180],
+                key=lambda p: (
+                    p.next_watering < today,
+                    p.next_fertilizer < today,
+                    -calc_progress_adaptive(p.last_watering, p.watering_freq, 30)
+                ),
+                reverse=True
+            )
+        elif text == "Fertilizer is overdue":
+            self.filtered_plants = sorted(
+                [p for p in self.all_plants if p.next_fertilizer < today],
+                key=lambda p: (
+                    p.next_watering < today,
+                    -calc_progress_adaptive(p.last_fertilizer, p.fertilizer_freq, 365)
+                ),
+                reverse=True
+            )
         else:
             self.filtered_plants = self.all_plants
 
